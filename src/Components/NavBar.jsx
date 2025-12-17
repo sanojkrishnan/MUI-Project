@@ -4,11 +4,13 @@ import {
   Badge,
   Box,
   InputBase,
+  Menu,
+  MenuItem,
   styled,
   Toolbar,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -24,28 +26,29 @@ const Search = styled("div")(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   width: "40%",
 }));
-const Icon = styled(Box)(({theme}) => ({
+const Icon = styled(Box)(({ theme }) => ({
   display: "none",
   justifyContent: "space-between",
-  alignItems : "center",
+  alignItems: "center",
   gap: "25px",
-  [theme.breakpoints.up("sm")]:{
-    display : "flex"
-  }
+  [theme.breakpoints.up("sm")]: {
+    display: "flex",
+  },
 }));
 
-const UserBox = styled(Box)(({theme}) => ({
+const UserBox = styled(Box)(({ theme }) => ({
   display: "flex",
   justifyContent: "space-between",
-  alignItems : "center",
-  width : "10%",
+  alignItems: "center",
+  width: "10%",
   paddingRight: "20px",
-  [theme.breakpoints.up("sm")]:{
-    display : "none"
-  }
+  [theme.breakpoints.up("sm")]: {
+    display: "none",
+  },
 }));
 
 function NavBar() {
+  const [open, setOpen] = useState(false);
   return (
     <AppBar position="sticky">
       <StyledToolbar>
@@ -78,19 +81,48 @@ function NavBar() {
           <Badge badgeContent={1000} max={999} color={"error"}>
             <NotificationsIcon />
           </Badge>
-          <Avatar sx={{
-            width : "30px",
-            height : "30px"
-          }} src="https://www.instagram.com/p/CzgC2OBvpYv/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" />
+          <Avatar
+            sx={{
+              width: "30px",
+              height: "30px",
+            }}
+            src="/public/download.jfif"
+            onClick={()=> setOpen(true) }
+          />
         </Icon>
         <UserBox>
-            <Avatar sx={{
-            width : "30px",
-            height : "30px"
-          }} src="https://www.instagram.com/p/CzgC2OBvpYv/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" />
+          <Avatar
+            sx={{
+              width: "30px",
+              height: "30px",
+            }}
+            src="/public/download.jfif"
+            onClick={()=> setOpen(true) }
+          />
           <Typography variant="span">John</Typography>
         </UserBox>
       </StyledToolbar>
+      <Menu
+        id="demo-positioned-menu"
+        aria-labelledby="demo-positioned-button"
+        open={open}
+        onClose={() => setOpen(false)}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        sx={{
+      top: "30px"
+        }}
+      >
+        <MenuItem>Profile</MenuItem>
+        <MenuItem>My account</MenuItem>
+        <MenuItem>Logout</MenuItem>
+      </Menu>
     </AppBar>
   );
 }
